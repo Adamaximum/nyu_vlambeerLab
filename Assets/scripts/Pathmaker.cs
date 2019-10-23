@@ -11,14 +11,19 @@ using UnityEngine;
 
 public class Pathmaker : MonoBehaviour {
 
-// STEP 2: ============================================================================================
-// translate the pseudocode below
+    // STEP 2: ============================================================================================
+    // translate the pseudocode below
 
-//	DECLARE CLASS MEMBER VARIABLES:
-//	Declare a private integer called counter that starts at 0; 		// counter var will track how many floor tiles I've instantiated
-//	Declare a public Transform called floorPrefab, assign the prefab in inspector;
-//	Declare a public Transform called pathmakerSpherePrefab, assign the prefab in inspector; 		// you'll have to make a "pathmakerSphere" prefab later
+    //	DECLARE CLASS MEMBER VARIABLES:
+    //	Declare a private integer called counter that starts at 0;
+    // counter var will track how many floor tiles I've instantiated
+    //	Declare a public Transform called floorPrefab, assign the prefab in inspector;
+    //	Declare a public Transform called pathmakerSpherePrefab, assign the prefab in inspector;
+    // you'll have to make a "pathmakerSphere" prefab later
 
+    private int counter = 0;
+    public Transform floorPrefab;
+    public Transform pathmakerSpherePrefab;
 
 	void Update () {
 //		If counter is less than 50, then:
@@ -26,13 +31,43 @@ public class Pathmaker : MonoBehaviour {
 //			If random number is less than 0.25f, then rotate myself 90 degrees;
 //				... Else if number is 0.25f-0.5f, then rotate myself -90 degrees;
 //				... Else if number is 0.99f-1.0f, then instantiate a pathmakerSpherePrefab clone at my current position;
-//			// end elseIf
+//			
+// end elseIf
 
 //			Instantiate a floorPrefab clone at current position;
 //			Move forward ("forward", as in, the direction I'm currently facing) by 5 units;
 //			Increment counter;
 //		Else:
-//			Destroy my game object; 		// self destruct if I've made enough tiles already
+//			Destroy my game object; 		
+// self destruct if I've made enough tiles already
+
+        if (counter < 50)
+        {
+            float randNum = Random.Range(0.0f, 1.0f);
+
+            if (randNum < 0.25f)
+            {
+                transform.Rotate(new Vector3 (0f, 90f, 0f));
+            }
+            else if (randNum >= 0.25f && randNum <= 0.5f)
+            {
+                transform.Rotate(new Vector3(0f, -90f, 0f));
+            }
+            else if (randNum >= 0.99f && randNum <= 1.0f)
+            {
+                Instantiate(pathmakerSpherePrefab, transform.position, transform.rotation);
+            }
+
+            Instantiate(floorPrefab, transform.position, transform.rotation);
+
+            transform.position += transform.forward * 5;
+            counter++;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        
 	}
 
 } // end of class scope
