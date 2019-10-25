@@ -62,7 +62,7 @@ public class Pathmaker : MonoBehaviour {
             {
                 transform.Rotate(new Vector3(0f, -90f, 0f));
             }
-            else if (randNum >= 0.99f && randNum <= 1.0f)
+            else if (randNum >= 0.97f && randNum <= 1.0f)
             {
                 Instantiate(pathmakerSpherePrefab, transform.position, transform.rotation);
             }
