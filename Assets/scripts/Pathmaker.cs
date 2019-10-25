@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // MAZE PROC GEN LAB
 // all students: complete steps 1-6, as listed in this file
@@ -25,7 +26,15 @@ public class Pathmaker : MonoBehaviour {
     public Transform floorPrefab;
     public Transform pathmakerSpherePrefab;
 
+    public static int globalTileCount;
+
 	void Update () {
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
 //		If counter is less than 50, then:
 //			Generate a random number from 0.0f to 1.0f;
 //			If random number is less than 0.25f, then rotate myself 90 degrees;
@@ -62,12 +71,19 @@ public class Pathmaker : MonoBehaviour {
 
             transform.position += transform.forward * 5;
             counter++;
+
+            globalTileCount++;
         }
         else
         {
             Destroy(gameObject);
         }
-        
+
+        if (globalTileCount > 500)
+        {
+            Destroy(gameObject);
+        }
+        Debug.Log("Tiles: " + globalTileCount);
 	}
 
 } // end of class scope
@@ -85,7 +101,10 @@ public class Pathmaker : MonoBehaviour {
 //	- put Pathmaker.cs on a sphere, configure all the prefabs in the Inspector, and test it to make sure it works
 //	STABILIZE: 
 //	- code it so that all the Pathmakers can only spawn a grand total of 500 tiles in the entire world; how would you do that?
-//	- (hint: declare a "public static int" and have each Pathmaker check this "globalTileCount", somewhere in your code? if there are already enough tiles, then maybe the Pathmaker could Destroy my game object
+//	    - hint 1: a "static" variable is like a global variable, there's only 1 instance of that variable shared across the entire game / all objects
+//      - hint 2: declare a "public static int" counter, increment each time you instantiate a floor tile... like "globalTileCount++"
+//      - hint 3: if there are already too many tiles, then self-destruct without spawning new floor tiles... like "if(globalTileCount > 500)" ... "Destroy(gameObject);"
+//      - note: a static var will persist beyond scene changes! you have to reset the variable manually!
 
 
 
