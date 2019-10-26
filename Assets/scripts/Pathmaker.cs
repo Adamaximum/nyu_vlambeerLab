@@ -26,14 +26,23 @@ public class Pathmaker : MonoBehaviour {
     public Transform floorPrefab;
     public Transform pathmakerSpherePrefab;
 
+    float rightTurnChance = 0.25f;
+    float leftTurnChance = 0.5f;
+
     public static int globalTileCount;
+    public static int globalTileMax;
 
-	void Update () {
+    private void Start()
+    {
+        counter = Mathf.RoundToInt(Random.Range(0, 25));
 
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+        rightTurnChance = Random.Range(0, 0.25f);
+        leftTurnChance = Random.Range(0.25f, 0.5f);
+
+        globalTileMax = Mathf.RoundToInt(Random.Range(500, 1000));
+    }
+
+    void Update () {
 
 //		If counter is less than 50, then:
 //			Generate a random number from 0.0f to 1.0f;
@@ -54,11 +63,11 @@ public class Pathmaker : MonoBehaviour {
         {
             float randNum = Random.Range(0.0f, 1.0f);
 
-            if (randNum < 0.25f)
+            if (randNum < rightTurnChance)
             {
                 transform.Rotate(new Vector3 (0f, 90f, 0f));
             }
-            else if (randNum >= 0.25f && randNum <= 0.5f)
+            else if (randNum >= rightTurnChance && randNum <= leftTurnChance)
             {
                 transform.Rotate(new Vector3(0f, -90f, 0f));
             }
@@ -79,7 +88,7 @@ public class Pathmaker : MonoBehaviour {
             Destroy(gameObject);
         }
 
-        if (globalTileCount > 500)
+        if (globalTileCount > globalTileMax)
         {
             Destroy(gameObject);
         }
