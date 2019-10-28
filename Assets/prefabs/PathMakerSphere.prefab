@@ -105,6 +105,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5575b50532c45f4984a0392f98e35f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorPrefab: {fileID: 4113209856346078, guid: 65a6189e1bac1f549afc3dc95369929d,
-    type: 3}
+  currentFloorPrefab: {fileID: 0}
+  floorPrefabs:
+  - {fileID: 4113209856346078, guid: 65a6189e1bac1f549afc3dc95369929d, type: 3}
+  - {fileID: 4113209856346078, guid: 12dae95971451334dbd8b364402871ce, type: 3}
+  - {fileID: 4113209856346078, guid: af20807b38d42b44388aaef8085ce574, type: 3}
+  - {fileID: 4113209856346078, guid: 1989b9906bd89c14691c000264051b21, type: 3}
   pathmakerSpherePrefab: {fileID: 1016993176505376188}

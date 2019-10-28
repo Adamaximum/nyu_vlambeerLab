@@ -23,14 +23,17 @@ public class Pathmaker : MonoBehaviour {
     // you'll have to make a "pathmakerSphere" prefab later
 
     private int counter = 0;
-    public Transform floorPrefab;
+    public Transform currentFloorPrefab;
+    public Transform[] floorPrefabs;
     public Transform pathmakerSpherePrefab;
 
     float rightTurnChance = 0.25f;
     float leftTurnChance = 0.5f;
 
-    public static int globalTileCount;
-    public static int globalTileMax;
+    //public static int globalTileCount;
+    //public static int globalTileMax;
+
+    public GameManager gm;
 
     private void Start()
     {
@@ -39,7 +42,7 @@ public class Pathmaker : MonoBehaviour {
         rightTurnChance = Random.Range(0, 0.25f);
         leftTurnChance = Random.Range(0.25f, 0.5f);
 
-        globalTileMax = Mathf.RoundToInt(Random.Range(500, 1000));
+        gm = GameObject.Find("Main Camera").GetComponent<GameManager>();
     }
 
     void Update () {
@@ -76,23 +79,40 @@ public class Pathmaker : MonoBehaviour {
                 Instantiate(pathmakerSpherePrefab, transform.position, transform.rotation);
             }
 
-            Instantiate(floorPrefab, transform.position, transform.rotation);
+            if (randNum < 0.25f)
+            {
+                currentFloorPrefab = floorPrefabs[0];
+            }
+            else if (randNum >= 0.25f && randNum <= 0.5f)
+            {
+                currentFloorPrefab = floorPrefabs[1];
+            }
+            else if (randNum > 0.5f && randNum <= 0.75f)
+            {
+                currentFloorPrefab = floorPrefabs[2];
+            }
+            else
+            {
+                currentFloorPrefab = floorPrefabs[3];
+            }
+
+            Instantiate(currentFloorPrefab, transform.position, transform.rotation);
 
             transform.position += transform.forward * 5;
             counter++;
 
-            globalTileCount++;
+            gm.globalTileCount++;
         }
         else
         {
             Destroy(gameObject);
         }
 
-        if (globalTileCount > globalTileMax)
+        if (gm.globalTileCount > gm.globalTileMax)
         {
             Destroy(gameObject);
         }
-        Debug.Log("Tiles: " + globalTileCount);
+        Debug.Log("Tiles: " + gm.globalTileCount + " out of a possible " + gm.globalTileMax);
 	}
 
 } // end of class scope

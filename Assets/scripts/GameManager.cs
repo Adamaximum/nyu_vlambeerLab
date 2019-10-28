@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ToHellWithItRestart : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
+    public int globalTileCount;
+    public int globalTileMax;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        globalTileMax = Mathf.RoundToInt(Random.Range(500, 1000));
     }
 
     // Update is called once per frame
