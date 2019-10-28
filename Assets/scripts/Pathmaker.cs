@@ -42,7 +42,7 @@ public class Pathmaker : MonoBehaviour {
         rightTurnChance = Random.Range(0, 0.25f);
         leftTurnChance = Random.Range(0.25f, 0.5f);
 
-        gm = GameObject.Find("Main Camera").GetComponent<GameManager>();
+        gm = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update () {
@@ -102,6 +102,8 @@ public class Pathmaker : MonoBehaviour {
             counter++;
 
             gm.globalTileCount++;
+
+            //gm.floorPrefabCount.Add(currentFloorPrefab);
         }
         else
         {

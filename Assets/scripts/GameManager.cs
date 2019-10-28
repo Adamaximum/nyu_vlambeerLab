@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public int globalTileCount;
     public int globalTileMax;
 
+    //public List<Transform> floorPrefabCount;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -21,5 +23,10 @@ public class GameManager : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+
+        //for (int i = 0; i < floorPrefabCount.Count; i++)
+        //{
+        //    floorPrefabCount.Add(transform.position);
+        //}
     }
 }
